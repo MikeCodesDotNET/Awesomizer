@@ -3,6 +3,8 @@ using CoreAnimation;
 using Foundation;
 using UIKit;
 using CoreGraphics;
+using System.Drawing;
+using System.Linq;
 
 namespace Awesomizer
 {
@@ -196,13 +198,13 @@ namespace Awesomizer
             view.Frame = new CoreGraphics.CGRect(x, existingFrame.Y, existingFrame.Width, existingFrame.Height);
         }
 
-        public static void SetOriginX(this UIView view, nfloat y)
+        public static void SetOriginY(this UIView view, nfloat y)
         {
             var existingFrame = view.Frame;
             view.Frame = new CoreGraphics.CGRect(existingFrame.X, y, existingFrame.Width, existingFrame.Height);
         }
 
-        public static SizeF StringSize(this UILabel label)
+        public static CGSize StringSize(this UILabel label)
         {
             return new NSString(label.Text).StringSize(label.Font);
         }
@@ -263,9 +265,9 @@ namespace Awesomizer
 
         public static UIColor Lighten(this UIColor color, int steps)
         {
-            int modifier = 16 * steps;
+             int modifier = 16 * steps;
 
-            float rF, gF, bF, aF;
+            nfloat rF, gF, bF, aF;
             color.GetRGBA(out rF, out gF, out bF, out aF);
 
             int r, g, b, a;
@@ -290,7 +292,7 @@ namespace Awesomizer
         {
             int modifier = 16 * steps;
 
-            float rF, gF, bF, aF;
+            nfloat rF, gF, bF, aF;
 
             color.GetRGBA(out rF, out gF, out bF, out aF);
 

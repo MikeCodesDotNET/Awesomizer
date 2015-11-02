@@ -1,0 +1,6 @@
+/Users/mikejames/Git/Awesomizer/obj/Debug/Xamarin.iOS,Version=v1.0.AssemblyAttribute.cs
+/Users/mikejames/Git/Awesomizer/obj/Debug/optimized/
+/Users/mikejames/Git/Awesomizer/bin/Debug/Awesomizer.dll.mdb
+/Users/mikejames/Git/Awesomizer/bin/Debug/Awesomizer.dll
+/Users/mikejames/Git/Awesomizer/obj/Debug/Awesomizer.dll
+/Users/mikejames/Git/Awesomizer/obj/Debug/Awesomizer.dll.mdb
