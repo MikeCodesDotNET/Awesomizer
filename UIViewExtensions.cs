@@ -2,11 +2,13 @@
 using CoreAnimation;
 using Foundation;
 using UIKit;
+using CoreGraphics;
 
 namespace Awesomizer
 {
-    public static class Animations
+    public static class UIViewExtensions
     {
+        #region Animations 
         public enum UIViewAnimationFlipDirection
         {
             Top,
@@ -172,6 +174,67 @@ namespace Awesomizer
         {
             return view.Layer.AnimationKeys.Count() > 0;
         }
+        #endregion
+
+        #region Size & Positon
+
+        public static void SetWidth(this UIView view, nfloat width)
+        {
+            var existingFrame = view.Frame;
+            view.Frame = new CoreGraphics.CGRect(existingFrame.X, existingFrame.Y, width, existingFrame.Height);
+        }
+
+        public static void SetHeight(this UIView view, nfloat height)
+        {
+            var existingFrame = view.Frame;
+            view.Frame = new CoreGraphics.CGRect(existingFrame.X, existingFrame.Y, existingFrame.Width, height);
+        }
+
+        public static void SetOriginX(this UIView view, nfloat x)
+        {
+            var existingFrame = view.Frame;
+            view.Frame = new CoreGraphics.CGRect(x, existingFrame.Y, existingFrame.Width, existingFrame.Height);
+        }
+
+        public static void SetOriginX(this UIView view, nfloat y)
+        {
+            var existingFrame = view.Frame;
+            view.Frame = new CoreGraphics.CGRect(existingFrame.X, y, existingFrame.Width, existingFrame.Height);
+        }
+
+        #endregion
+
+        #region UIImage
+
+        public static void MakeRounded(this UIImageView image, int cornerRadius) {
+            if (image == null)
+                return;
+
+            var layer = image.Layer;
+            layer.CornerRadius = cornerRadius;
+            layer.BorderWidth = 0f;
+            layer.BorderColor = UIColor.Clear.CGColor;
+            layer.MasksToBounds = true;
+        }
+
+        public static UIImage Tint(this UIImage img, UIColor tint, CGBlendMode blendMode) {
+            UIGraphics.BeginImageContextWithOptions(img.Size, false, 0f);
+            tint.SetFill();
+            var bounds = new CGRect(0, 0, img.Size.Width, img.Size.Height);
+            UIGraphics.RectFill(bounds);
+
+            img.Draw(bounds, blendMode, 1f);
+
+            if (blendMode != CGBlendMode.DestinationIn)
+                img.Draw(bounds, CGBlendMode.DestinationIn, 1f);
+
+            var tintedImage = UIGraphics.GetImageFromCurrentImageContext();
+            UIGraphics.EndImageContext();
+
+            return tintedImage;
+        }
+
+        #endregion
     }
 }
 
