@@ -1,0 +1,26 @@
+id: Awesomizer
+version: 1.0.0
+name: Awesomizer
+summary: A Xamarin.iOS library full of awesomeness (animations and useful helpers).
+
+publisher: Mike James
+publisher-url: https://twitter.com/MikeCodesDotNet
+src-url: https://github.com/MikeCodesDotNet/Awesomizer
+
+icons:
+  - icons/icon_128x128.png
+
+license: License
+details: Details.md
+getting-started: Details.md
+
+build: Awesomizer/Awesomizer.sln
+
+libraries:
+  ios-unified: Awesomizer/bin/release/Awesomizer.dll
+
+samples:
+  - name: "iOS Sample"
+    path:  AwesomizerSample/AwesomizerSample.sln
+    configuration: "iPhone|Release"
+

@@ -25,38 +25,38 @@ namespace Awesomizer
             Left
         }
 
-        public static void ShakeHorizontally(this UIView view)
+        public static void ShakeHorizontally(this UIView view, float strength = 12.0f)
         {
             CAKeyFrameAnimation animation = (CAKeyFrameAnimation)CAKeyFrameAnimation.FromKeyPath ("transform.translation.x");
             animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);
             animation.Duration = 0.5;
             animation.Values = new NSObject[]
                 {
-                    NSNumber.FromFloat(-12),
-                    NSNumber.FromFloat(12),
-                    NSNumber.FromFloat(-8),
-                    NSNumber.FromFloat(8),
-                    NSNumber.FromFloat(-4),
-                    NSNumber.FromFloat(4),
+                    NSNumber.FromFloat(-strength),
+                    NSNumber.FromFloat(strength),
+                    NSNumber.FromFloat(-strength*0.66f),
+                    NSNumber.FromFloat(strength*0.66f),
+                    NSNumber.FromFloat(-strength*0.33f),
+                    NSNumber.FromFloat(strength*0.33f),
                     NSNumber.FromFloat(0)
                 };
 
             view.Layer.AddAnimation(animation, "shake");
         }
 
-        public static void ShakeVertically(this UIView view)
+        public static void ShakeVertically(this UIView view, float strength = 12.0f)
         {
             CAKeyFrameAnimation animation = CAKeyFrameAnimation.FromKeyPath("transform.translation.y");
             animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);
             animation.Duration = 0.5;
             animation.Values = new NSObject[]
                 {
-                    NSNumber.FromFloat(-12),
-                    NSNumber.FromFloat(12),
-                    NSNumber.FromFloat(-8),
-                    NSNumber.FromFloat(8),
-                    NSNumber.FromFloat(-4),
-                    NSNumber.FromFloat(4),
+                    NSNumber.FromFloat(-strength),
+                    NSNumber.FromFloat(strength),
+                    NSNumber.FromFloat(-strength*0.66f),
+                    NSNumber.FromFloat(strength*0.66f),
+                    NSNumber.FromFloat(-strength*0.33f),
+                    NSNumber.FromFloat(strength*0.33f),
                     NSNumber.FromFloat(0)
                 };
 
@@ -148,18 +148,18 @@ namespace Awesomizer
             view.Layer.AddAnimation(rotateAnimation, "transform.rotation.z");
         }
 
-        public static void ApplyMotionEffects(this UIView view)
+        public static void ApplyMotionEffects(this UIView view, float horizontalRange = 10.0f, float verticalRange = 10.0f)
         {
-            int SystemVersion = Convert.ToInt16 (UIDevice.CurrentDevice.SystemVersion.Split ('.') [0]);
-            if (SystemVersion >= 7)
+            if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
             {
                 UIInterpolatingMotionEffect horizontalEffect = new UIInterpolatingMotionEffect("center.x", UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis);
-                horizontalEffect.MinimumRelativeValue = NSNumber.FromFloat(-10);
-                horizontalEffect.MaximumRelativeValue = NSNumber.FromFloat(10);
+                horizontalEffect.MinimumRelativeValue = NSNumber.FromFloat(-horizontalRange);
+                horizontalEffect.MaximumRelativeValue = NSNumber.FromFloat(horizontalRange);
 
-                UIInterpolatingMotionEffect verticalEffect = new UIInterpolatingMotionEffect("center.6", UIInterpolatingMotionEffectType.TiltAlongVerticalAxis);
-                verticalEffect.MinimumRelativeValue = NSNumber.FromFloat(-10);
-                verticalEffect.MaximumRelativeValue = NSNumber.FromFloat(10);
+                UIInterpolatingMotionEffect verticalEffect = new UIInterpolatingMotionEffect("center.y", UIInterpolatingMotionEffectType.TiltAlongVerticalAxis);
+                verticalEffect.MinimumRelativeValue = NSNumber.FromFloat(-verticalRange);
+                verticalEffect.MaximumRelativeValue = NSNumber.FromFloat(verticalRange);
+
                 UIMotionEffectGroup motionEffectGroup = new UIMotionEffectGroup();
                 motionEffectGroup.MotionEffects = new UIMotionEffect[] {horizontalEffect, verticalEffect};
 
