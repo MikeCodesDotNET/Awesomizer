@@ -6,7 +6,7 @@ using CoreGraphics;
 using System.Drawing;
 using System.Linq;
 
-namespace Awesomizer
+namespace MikeCodesDotNET.iOS
 {
     public static class UIViewExtensions
     {
@@ -25,9 +25,17 @@ namespace Awesomizer
             Left
         }
 
+        public static void FadeIn(this UIView view, double duration, float delay)
+        {
+            UIView.Animate(duration, delay, UIViewAnimationOptions.CurveEaseIn, () =>
+               {
+                   view.Alpha = 1;
+               }, () => { });
+        }
+
         public static void ShakeHorizontally(this UIView view, float strength = 12.0f)
         {
-            CAKeyFrameAnimation animation = (CAKeyFrameAnimation)CAKeyFrameAnimation.FromKeyPath ("transform.translation.x");
+            CAKeyFrameAnimation animation = (CAKeyFrameAnimation)CAKeyFrameAnimation.FromKeyPath("transform.translation.x");
             animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);
             animation.Duration = 0.5;
             animation.Values = new NSObject[]
@@ -150,7 +158,7 @@ namespace Awesomizer
 
         public static void ApplyMotionEffects(this UIView view, float horizontalRange = 10.0f, float verticalRange = 10.0f)
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
+            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
             {
                 UIInterpolatingMotionEffect horizontalEffect = new UIInterpolatingMotionEffect("center.x", UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis);
                 horizontalEffect.MinimumRelativeValue = NSNumber.FromFloat(-horizontalRange);
@@ -161,7 +169,7 @@ namespace Awesomizer
                 verticalEffect.MaximumRelativeValue = NSNumber.FromFloat(verticalRange);
 
                 UIMotionEffectGroup motionEffectGroup = new UIMotionEffectGroup();
-                motionEffectGroup.MotionEffects = new UIMotionEffect[] {horizontalEffect, verticalEffect};
+                motionEffectGroup.MotionEffects = new UIMotionEffect[] { horizontalEffect, verticalEffect };
 
                 view.AddMotionEffect(motionEffectGroup);
             }
@@ -214,7 +222,8 @@ namespace Awesomizer
 
         #region UIImage
 
-        public static void MakeRounded(this UIImageView image, int cornerRadius) {
+        public static void MakeRounded(this UIImageView image, int cornerRadius)
+        {
             if (image == null)
                 return;
 
@@ -225,7 +234,8 @@ namespace Awesomizer
             layer.MasksToBounds = true;
         }
 
-        public static UIImage Tint(this UIImage img, UIColor tint, CGBlendMode blendMode) {
+        public static UIImage Tint(this UIImage img, UIColor tint, CGBlendMode blendMode)
+        {
             UIGraphics.BeginImageContextWithOptions(img.Size, false, 0f);
             tint.SetFill();
             var bounds = new CGRect(0, 0, img.Size.Width, img.Size.Height);
@@ -256,16 +266,16 @@ namespace Awesomizer
             if (hexString.Length != 6)
                 throw new Exception("Invalid hex string");
 
-            int red = Int32.Parse(hexString.Substring(0,2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            int green = Int32.Parse(hexString.Substring(2,2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            int blue = Int32.Parse(hexString.Substring(4,2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            int red = Int32.Parse(hexString.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            int green = Int32.Parse(hexString.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            int blue = Int32.Parse(hexString.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
 
             return UIColor.FromRGB(red, green, blue);
         }
 
         public static UIColor Lighten(this UIColor color, int steps)
         {
-             int modifier = 16 * steps;
+            int modifier = 16 * steps;
 
             nfloat rF, gF, bF, aF;
             color.GetRGBA(out rF, out gF, out bF, out aF);
