@@ -1,4 +1,7 @@
+![](https://github.com/MikeCodesDotNet/Awesomizer/blob/master/icons/icon_128x128.png)
 # Awesomizer
+
+![](https://www.bitrise.io/app/b7a4c13fbac69671.svg?token=25dTKghlgLOPI1Ax63wTUA)
 
 A Xamarin.iOS library full of awesomeness (animations and useful helpers)
 
