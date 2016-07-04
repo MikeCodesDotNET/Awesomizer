@@ -2,6 +2,7 @@
 using UIKit;
 
 using Awesomizer;
+using MikeCodesDotNET.iOS;
 
 namespace AwesomizerSample
 {

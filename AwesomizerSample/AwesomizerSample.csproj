@@ -102,6 +102,10 @@
     <Compile Include="MenuViewController.designer.cs">
       <DependentUpon>MenuViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScrollingTabBarSampleViewController.cs" />
+    <Compile Include="ScrollingTabBarSampleViewController.designer.cs">
+      <DependentUpon>ScrollingTabBarSampleViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
